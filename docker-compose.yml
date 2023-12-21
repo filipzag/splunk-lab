@@ -17,7 +17,7 @@ services:
       - SPLUNK_START_ARGS=--accept-license
       - SPLUNK_PASSWORD=12345678
     volumes:
-      - /var/log/zeek:/var/log/zeek
+      - /home/fzagar/splunk-lab/dns.log:/var/log/zeek
       - /home/fzagar/splunk-lab/opt_splunk_etc:/opt/splunkforwarder/etc/system/local
     depends_on: 
       - so1
@@ -36,7 +36,7 @@ services:
       - SPLUNK_STANDALONE_URL=spl_server
       - SPLUNK_ENABLE_LISTEN=9997
       - SPLUNK_PASSWORD=12345678
+    volumes:
+      - /home/fzagar/splunk-lab/default.yml:/tmp/defaults/default.yml
     ports:
       - "8008:8000"
-      - "9997:9997"
-      - "8088:8088"
