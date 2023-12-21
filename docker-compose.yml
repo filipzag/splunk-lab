@@ -1,0 +1,45 @@
+version: "3.6"
+
+networks:
+  splunknet:
+    driver: bridge
+    attachable: true
+
+services:
+  uf1:
+    networks:
+      splunknet:
+        aliases:
+          - spl_forwarder
+    image: ${UF_IMAGE:-splunk/universalforwarder:latest}
+    hostname: spl_forwarder
+    container_name: spl_forwarder
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=12345678
+    volumes:
+      - /var/log/zeek:/var/log/zeek
+      - /home/fzagar/spl/opt_splunk_etc:/opt/splunkforwarder/etc
+    depends_on: 
+      - so1
+
+
+  so1:
+    networks:
+      splunknet:
+        aliases:
+          - spl_server
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: spl_server
+    container_name: spl_server
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_STANDALONE_URL=so1
+      - SPLUNK_ENABLE_LISTEN=9997
+      - SPLUNK_ADD=tcp 1514
+      - SPLUNK_PASSWORD=12345678
+    ports:
+      - "8008:8000"
+      - "9997:9997"
+      - "8088:8088"
+      - "1514:1514"

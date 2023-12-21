@@ -1,0 +1,14 @@
+[props/dfm_stdout-too_small]
+owner = nobody
+version = 9.0.5
+modtime = 1702660499.479795000
+
+[props/first_install-too_small]
+owner = nobody
+version = 9.0.5
+modtime = 1702660499.557833000
+
+[props/dfm_stderr-too_small]
+owner = nobody
+version = 9.0.5
+modtime = 1702660499.667907000
